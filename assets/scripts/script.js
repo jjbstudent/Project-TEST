@@ -3,7 +3,7 @@ var apiKey2 = "d5c2cec884mshe479a0bb5604893p149fd3jsne33416b10ce7"; // Wyre Data
 
 
 function fetchEventsFromSeatGeek(latitude, longitude) {
-  const seatGeekQuery = `https://api.seatgeek.com/2/events?lat=${latitude}&lon=${longitude}&range=15mi&client_id=${apiKey1}`; //set to 15 miles range
+  const seatGeekQuery = `https://api.seatgeek.com/2/events?lat=${latitude}&lon=${longitude}&range=50mi&client_id=${apiKey1}`; //set to 15 miles range
 
   fetch(seatGeekQuery)
     .then(function (response) {
@@ -33,6 +33,7 @@ function appendToSearchResults(content) {
   // Concatenate the existing value with the new content and set it back to the textarea
   searchResultsTextarea.textContent += content + "\n";
 }
+// Get Current location
 function getCurrentLocation() {
   // Use browser's geolocation API to get the current location
   navigator.geolocation.getCurrentPosition(
@@ -58,7 +59,7 @@ function getCurrentLocation() {
     }
   );
 }
-
+//fetch data from town
 function fetchDataFromWyreByTown(town) {
   const settings = {
     async: true,
@@ -88,10 +89,10 @@ function fetchDataFromWyreByTown(town) {
       alert(`Error fetching data from Wyre (${town}). Please try again.`);
     });
 }
-
+//model search
 function searchInModal() {
   // Get the value entered by the user in the input field
-  const cityTown = document.getElementById("cityTownInput").value;
+  var cityTown = document.getElementById("cityTownInput").value;
 
   // Check if a city/town is entered
   if (cityTown.trim() !== "") {

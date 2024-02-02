@@ -31,11 +31,11 @@
                 <div class="card-body">
                     <p>Click the button below to get current location details</p>
                 </div>
-                <button class="btn btn-light card-footer" onclick="getCurrentLocation()">Get Current Location</button>
+                <button class="btn btn-light card-footer" onclick="getCurrentLocation()">My Location</button>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#exampleModalCenter">
-                    Search Town
+                    Filter
                 </button>
             </div>
         </div>
@@ -44,12 +44,33 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enter City/Town</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Search Options</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalBody">
                 <!-- Add an input field for the user to enter the town -->
                 <label for="cityTownInput" class="form-label">Enter City/Town:</label>
+                <input type="text" class="form-control" id="cityTownInput">
+
+                <!-- Content goes here -->
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Add an input field for the user to enter the town -->
+                <label for="cityTownInput" class="form-label">Enter Postcode:</label>
+                <input type="text" class="form-control" id="cityTownInput">
+
+                <!-- Content goes here -->
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Add an input field for the user to enter the town -->
+                <label for="cityTownInput" class="form-label">Search Restaurant (name):</label>
+                <input type="text" class="form-control" id="cityTownInput">
+
+                <!-- Content goes here -->
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Add an input field for the user to enter the town -->
+                <label for="cityTownInput" class="form-label">Attractions/Events:</label>
                 <input type="text" class="form-control" id="cityTownInput">
 
                 <!-- Content goes here -->
