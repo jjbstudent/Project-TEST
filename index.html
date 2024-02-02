@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" src="assets/style/style.css">
+
+</head>
+
+<body>
+        <header class="container-fluid text-center bg-light p-2 weather-header">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container"></div>
+                    <h2 id="time-now"></h2>
+                    <h1 class="display-4">TEST PROJECT</h1>
+                    <p class="lead">Events around the Corner</p>
+    
+                </div>
+              </div>
+        </header>
+    <main>
+        <!-- Button to get current location details -->
+    <div class="row">
+        <div class="col-md-3 col-12 mt-3">
+            <div class="card">
+                <h4 class="card-header bg-dark text-light">Instructions</h4>
+                <div class="card-body">
+                    <p>Click the button below to get current location details</p>
+                </div>
+                <button class="btn btn-light card-footer" onclick="getCurrentLocation()">Get Current Location</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter">
+                    Search Town
+                </button>
+            </div>
+        </div>
+        <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enter City/Town</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Add an input field for the user to enter the town -->
+                <label for="cityTownInput" class="form-label">Enter City/Town:</label>
+                <input type="text" class="form-control" id="cityTownInput">
+
+                <!-- Content goes here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- Call the new function when the "Search" button is clicked -->
+                <button type="button" class="btn btn-primary" onclick="searchInModal()">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <!-- Second column (col-md-6) -->
+ <div class="col-md-6 col-12 mt-3">
+    <!-- Content for the second column -->
+    <div class="card">
+        <!-- Add your content here -->
+        <h4 class="card-header bg-dark text-light">Fetch Results</h4>
+        <div class="searchResults">
+            <textarea id="searchResults" class="form-control" rows="10" readonly></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- Third column (col-md-3) -->
+<div class="col-md-3 col-12 mt-3">
+    <!-- Additional content on the same row -->
+    <div class="card">
+        <!-- Add your additional content here -->
+        <h4 class="card-header bg-dark text-light">More Content</h4>
+        <div class="card-body">
+            <p>More content goes here.</p>
+        </div>
+    </div>
+</div>
+</div>
+
+        <!-- main content -->
+
+    </main>
+
+    <footer>
+
+        <!-- footer content -->
+
+    </footer>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <!--this one worked with my modal -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"    
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <!--added dayJS to test the time and date feature -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+    <script src="assets/scripts/script.js"></script>
+</body>
+
+</html>
+
+</html>
