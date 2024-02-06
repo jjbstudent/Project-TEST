@@ -1,5 +1,4 @@
 var serperAPI = "2813e1297564fcc84cf203c0dafe4e0e10c5ef05" //serper API
-var restaurantList = [];
 
 // Function to perform the search using the entered city/town
 function performSearch() {
@@ -22,8 +21,8 @@ function fetchFromSerper(cityTown) {
   var myHeaders = new Headers();
   myHeaders.append("X-API-KEY", "2813e1297564fcc84cf203c0dafe4e0e10c5ef05");
   myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({
+//can custom the search  
+  var raw = JSON.stringify({ 
     "q": "bars " + cityTown, // Concatenate the cityTown variable here
     "gl": "gb"
   });
@@ -99,6 +98,24 @@ function appendRowsOfCardsToContainer(places) {
     console.error('Error processing API response:', error);
     // Handle error appropriately, e.g., display an error message
   }
+}
+function getCurrentLocation() {
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  } else {
+      console.error("Geolocation is not supported by your browser.");
+  }
+}
+//error testing for current location
+function successCallback(position) {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+
+  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+}
+function errorCallback(error) {
+  console.error("Error getting location:", error.message);
+  // Handle the error as needed
 }
 
 
