@@ -1,133 +1,108 @@
-var apiKey1 = "Mzk2OTg5MTB8MTcwNjc4ODA4NC42NTY5MzAy"; // SeatGeek API Key
-var apiKey2 = "d5c2cec884mshe479a0bb5604893p149fd3jsne33416b10ce7"; // Wyre Data API Key
+var serperAPI = "2813e1297564fcc84cf203c0dafe4e0e10c5ef05" //serper API
+var restaurantList = [];
 
-
-function fetchEventsFromSeatGeek(latitude, longitude) {
-  const seatGeekQuery = `https://api.seatgeek.com/2/events?lat=${latitude}&lon=${longitude}&range=50mi&client_id=${apiKey1}`; //set to 15 miles range
-
-  fetch(seatGeekQuery)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // Log the events data to the console
-      console.log("Events based on current location (SeatGeek):", data);
-
-      // Append events data to the textarea
-      appendToSearchResults(
-        "Events based on current location (SeatGeek):\n" +
-          JSON.stringify(data, null, 2)
-      );
-    })
-    .catch(function (error) {
-      // Handle errors if any
-      console.error("Error fetching events (SeatGeek):", error);
-      alert("Error fetching events (SeatGeek). Please try again.");
-    });
-}
-// Function to append search results 
-function appendToSearchResults(content) { 
-  // Get the textarea element by ID
-  var searchResultsTextarea = document.getElementById("searchResults");
-
-  // Concatenate the existing value with the new content and set it back to the textarea
-  searchResultsTextarea.textContent += content + "\n";
-}
-// Get Current location
-function getCurrentLocation() {
-  // Use browser's geolocation API to get the current location
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      // Extract the latitude and longitude from the position
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      // Log the location details to the console
-      console.log("Latitude:", latitude);
-      console.log("Longitude:", longitude);
-
-      // Fetch events from SeatGeek based on the current location
-      fetchEventsFromSeatGeek(latitude, longitude);
-      // LAT/LONG does not work
-      // // Fetch restaurants from Wyre Data based on the current location
-      // fetchRestaurantsFromWyre(latitude, longitude);
-    },
-    function (error) {
-      // Handle errors if any
-      console.error("Error getting location:", error.message);
-      alert("Error getting location. Please try again.");
-    }
-  );
-}
-//fetch data from town
-function fetchDataFromWyreByTown(town) {
-  const settings = {
-    async: true,
-    crossDomain: true,
-    url: `https://wyre-data.p.rapidapi.com/restaurants/town/${town}`,
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "d5c2cec884mshe479a0bb5604893p149fd3jsne33416b10ce7",
-      "X-RapidAPI-Host": "wyre-data.p.rapidapi.com",
-    },
-  };
-
-  $.ajax(settings)
-    .done(function (response) {
-      // Log the response to the console
-      console.log(`Wyre Data - Restaurants in ${town}:`, response);
-
-      // Append the response to the textarea
-      appendToSearchResults(
-        `Wyre Data - Restaurants in ${town}:\n` +
-          JSON.stringify(response, null, 2)
-      );
-    })
-    .fail(function (error) {
-      // Handle errors if any
-      console.error(`Error fetching data from Wyre (${town}):`, error);
-      alert(`Error fetching data from Wyre (${town}). Please try again.`);
-    });
-}
-//model search
-function searchInModal() {
-  // Get the value entered by the user in the input field
+// Function to perform the search using the entered city/town
+function performSearch() {
+  // Get the value from the input field
   var cityTown = document.getElementById("cityTownInput").value;
 
-  // Check if a city/town is entered
   if (cityTown.trim() !== "") {
-    // Construct the API request URL based on the entered city/town
-    const wyreDataUrl = `https://wyre-data.p.rapidapi.com/restaurants/town/${cityTown}`;
+    // Clear existing content
+    document.getElementById("restaurant-list").innerHTML = "";
 
-    // Set up the request headers
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "d5c2cec884mshe479a0bb5604893p149fd3jsne33416b10ce7",
-        "X-RapidAPI-Host": "wyre-data.p.rapidapi.com",
-      },
-    };
-
-    // Make the API request
-    fetch(wyreDataUrl, options)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        // Display the results in the textarea
-        const resultsTextarea = document.getElementById("searchResults");
-        resultsTextarea.value = JSON.stringify(data, null, 2);
-      })
-      .catch(function (error) {
-        // Handle errors if any
-        console.error("Error fetching data:", error);
-        alert("Error fetching data. Please try again.");
-      });
+    // Call the fetchFromSerper function with the entered city/town
+    fetchFromSerper(cityTown);
   } else {
-    // Display an alert or handle the case where no city/town is entered
-    alert("Please enter a valid City/Town.");
+     // Update the input field with a message
+     cityTownInput.value = "Please enter a city or town.";
   }
-
-  // Close the modal if needed
-  $("#exampleModalCenter").modal("hide");
 }
+// Your existing fetchFromSerper function
+function fetchFromSerper(cityTown) { 
+  var myHeaders = new Headers();
+  myHeaders.append("X-API-KEY", "2813e1297564fcc84cf203c0dafe4e0e10c5ef05");
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    "q": "bars " + cityTown, // Concatenate the cityTown variable here
+    "gl": "gb"
+  });
+  
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+
+  fetch("https://google.serper.dev/places", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      console.log('API Response:', result); // Log the response to the console
+      appendRowsOfCardsToContainer(JSON.parse(result).places || []);
+    })
+    .catch(error => console.log('error', error));
+}
+function appendToSearchResults(result) {
+  var searchResultsTextarea = document.getElementById("searchResults");
+
+  try {
+    // Parse the JSON response
+    var data = JSON.parse(result);
+
+    // Extract relevant information from places
+    var places = data.places || [];
+
+    // Call the function to append rows of cards to the textarea
+    appendRowsOfCardsToContainer(places);
+  } catch (error) {
+    // Handle JSON parsing error
+    console.error('Error parsing JSON:', error);
+    searchResultsTextarea.textContent += "Error parsing JSON response\n";
+  }
+}
+// Function to append rows of cards directly to the "restaurant-list" container
+function appendRowsOfCardsToContainer(places) {
+  var restaurantList = document.getElementById("restaurant-list");
+
+  try {
+    // Create a new row container
+    var rowContainer = document.createElement("div");
+    rowContainer.classList.add("row");
+
+    places.forEach((place, index) => {
+      // Create HTML elements for each place
+      var restaurantCard = document.createElement("div");
+      restaurantCard.classList.add("card", "col-md-2"); // Adjust the class as per your layout
+
+      // Calculate new dimensions by reducing size by 2/3
+      var newWidth = place.thumbnailWidth * (2 / 3);
+      var newHeight = place.thumbnailHeight * (2 / 3);
+
+      restaurantCard.innerHTML = `
+        <img src="${place.thumbnailUrl}" alt="${place.title}" style="width: ${newWidth}px; height: ${newHeight}px;">
+        <div class="card-body">
+          <h5 class="card-title">${place.title}</h5>
+          <p class="card-text">${place.address}</p>
+          <p class="card-text">Rating: ${place.rating}</p>
+          <p class="card-text">Category: ${place.category}</p>
+        </div>
+      `;
+
+      // Append the card to the row container
+      rowContainer.appendChild(restaurantCard);
+    });
+
+    // Append the entire row container to the "restaurant-list" container
+    restaurantList.appendChild(rowContainer);
+  } catch (error) {
+    console.error('Error processing API response:', error);
+    // Handle error appropriately, e.g., display an error message
+  }
+}
+
+
+
+
+
+
