@@ -42,31 +42,28 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" id="modalBody">
-                            <div class="dropdown">
+                            <div class="dropdown" data-selected-category="">
+                                <input type="text" id="cityTownInput" placeholder="Enter City/Town">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Dropdown
+                                    Whats On?
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenu"> <!--not defined test example-->
-                                    <a class="dropdown-item dropdown-places" href="#">Places</a>
-                                    <a class="dropdown-item dropdown-shopping" href="#">Shopping</a>
-                                    <a class="dropdown-item dropdown-news" href="#">News</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                    <a class="dropdown-item dropdown-places" data-category="restaurants">Restaurants</a>
+                                    <a class="dropdown-item dropdown-shopping" data-category="bar pub nightclub">Night Life</a>
+                                    <a class="dropdown-item dropdown-news" data-category="comedy">Comedy</a>
+                                    <a class="dropdown-item dropdown-news" data-category="attractions">Attractions</a>
                                 </div>
+                                <button type="button" class="btn btn-primary" onclick="performSearch()">Search</button>
                             </div>
-                            <!-- Add an input field for the user to enter the town -->
-                            <label for="cityTownInput" class="form-label">Enter City/Town:</label>
-                            <input type="text" class="form-control" id="cityTownInput">
 
-                            <!-- Content goes here -->
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <!-- Call the new function when the "Search" button is clicked -->
-                            <button type="button" class="btn btn-primary" onclick="performSearch()">Search</button>
-                        </div>
+                     
                         
                     </div>
                 </div>
+                <div id="error-message" style="color: red;"></div>
+                <div id="restaurant-list"></div>
             </div>
             <!-- Second column (col-md-6) -->
             <div class="col-md-6 col-12 mt-3">

@@ -3,13 +3,15 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 /* background image section */
 .main-image {
   width: 100%;
   height: 300px;
 }
+
 .content {
-  background-image: url("../images/bgImage.png");
+  background-image: url("../images/front\ page\ image.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -21,6 +23,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .heading {
   color: white;
   font-size: 40px;
@@ -28,6 +31,7 @@
   font-weight: 800;
   font-style: italic;
 }
+
 .sub-heading {
   color: white;
   font-size: 30px;
@@ -48,6 +52,7 @@
   align-items: center;
   padding-top: 20px;
 }
+
 .current-location {
   width: 40%;
   border: 1px solid #ccc;
@@ -58,18 +63,26 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .location-icon {
   color: rgb(245, 92, 92);
   margin-right: 8px;
 }
+
 .current {
   color: #757575;
+  width: 100%;
 }
+
 .dropdown {
   width: 34%;
   padding: 10px;
   border-right: 1px solid #ccc;
 }
+.dropdown button:focus {
+  outline: none;
+}
+
 .search-citybuttons {
   width: 70%;
   display: flex;
@@ -78,24 +91,32 @@
   justify-content: space-between;
   padding-left: 30px;
 }
+
 .city {
+  width: 100% !important;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+
 .search-city {
   padding: 10px;
   width: 100%;
   border: none;
   background-color: transparent;
 }
+.search-city:focus {
+  outline: none;
+}
 .search-icon {
   color: #757575;
 }
+
 .click-button {
   margin-left: 20px;
   width: 10%;
 }
+
 .search-btn {
   padding: 15px 20px;
   width: 100%;
@@ -114,12 +135,15 @@
   margin: auto;
   margin-bottom: 5%;
 }
+
 .restaurant-card {
   margin: 20px;
   position: relative;
   top: 0;
   border: none;
+  width: 19rem;
 }
+
 .restaurant-card:hover {
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   /* transition: vertical 2s; */
@@ -128,34 +152,42 @@
   transition: top ease 0.5s;
   top: -10px;
 }
+
 /* card styling */
 .card-img-top {
   width: 100%;
   height: 200px;
 }
+
 .name {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .food-type {
   font-size: 14px;
 }
+
 .price {
   font-size: 14px;
 }
+
 .city {
   color: #8d8d8d;
   font-size: 14px;
 }
+
 .time {
   color: red;
   font-size: 14px;
 }
+
 .distance {
   font-size: 14px;
   font-weight: bold;
 }
+
 .rating {
   width: 50px;
   height: 30px;
